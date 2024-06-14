@@ -1,46 +1,41 @@
 package com.github.lucitacastello.dslearn.entities;
 
-import com.github.lucitacastello.dslearn.entities.enums.ResourceType;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_resource")
-public class Resource { //recursos do curso
+@Table(name = "tb_section")
+public class Section {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-
-    @Column(columnDefinition = "TEXT")
     private String description;
     private Integer position;
     private String imgUri;
-    private ResourceType type;
 
     @ManyToOne
-    @JoinColumn(name = "offer_id") //FK
-    private Offer offer;
+    @JoinColumn(name = "resource_id") //fk
+    private Resource resource;
 
-    @OneToMany(mappedBy = "resource") //mapeado do outro lado
-    private List<Section> sections = new ArrayList<>();
+    //auto associação
+    @ManyToOne
+    @JoinColumn(name = "prerequisite_id") //fk
+    private Section prerequisite;
 
-    public Resource() {
+    public Section() {
     }
 
-    public Resource(Long id, String title, String description, Integer position, String imgUri, ResourceType type, Offer offer) {
+    public Section(Long id, String title, String description, Integer position, String imgUri, Resource resource, Section prerequisite) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.position = position;
         this.imgUri = imgUri;
-        this.type = type;
-        this.offer = offer;
+        this.resource = resource;
+        this.prerequisite = prerequisite;
     }
 
     public Long getId() {
@@ -83,36 +78,28 @@ public class Resource { //recursos do curso
         this.imgUri = imgUri;
     }
 
-    public ResourceType getType() {
-        return type;
+    public Resource getResource() {
+        return resource;
     }
 
-    public void setType(ResourceType type) {
-        this.type = type;
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
-    public Offer getOffer() {
-        return offer;
+    public Section getPrerequisite() {
+        return prerequisite;
     }
 
-    public List<Section> getSections() {
-        return sections;
-    }
-
-    public void setSections(List<Section> sections) {
-        this.sections = sections;
-    }
-
-    public void setOffer(Offer offer) {
-        this.offer = offer;
+    public void setPrerequisite(Section prerequisite) {
+        this.prerequisite = prerequisite;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Resource resource = (Resource) o;
-        return Objects.equals(id, resource.id);
+        Section section = (Section) o;
+        return Objects.equals(id, section.id);
     }
 
     @Override
