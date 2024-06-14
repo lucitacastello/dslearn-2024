@@ -13,7 +13,10 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String text;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE") //padrão UTC
     private Instant moment;
+
     private boolean read;
     private String route;
 
