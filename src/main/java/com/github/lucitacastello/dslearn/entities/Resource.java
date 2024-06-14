@@ -14,7 +14,6 @@ public class Resource { //recursos do curso
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
 
     @Column(columnDefinition = "TEXT")

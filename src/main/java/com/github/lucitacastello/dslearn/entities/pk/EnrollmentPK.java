@@ -1,5 +1,7 @@
-package com.github.lucitacastello.dslearn.entities;
+package com.github.lucitacastello.dslearn.entities.pk;
 
+import com.github.lucitacastello.dslearn.entities.Offer;
+import com.github.lucitacastello.dslearn.entities.User;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;

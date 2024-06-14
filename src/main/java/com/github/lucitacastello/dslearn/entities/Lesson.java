@@ -19,6 +19,9 @@ public abstract class Lesson {
     @JoinColumn(name = "section_id")
     private Section section;
 
+    @OneToMany(mappedBy = "lesson")
+    private List<Deliver> deliveries = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(name = "tb_lessons_done",
             joinColumns = @JoinColumn(name = "lesson_id"),
@@ -27,9 +30,6 @@ public abstract class Lesson {
                     @JoinColumn(name = "offer_id") //pk composta
             })
     private Set<Enrollment> enrollmentsDone = new HashSet<>();
-
-    @OneToMany(mappedBy = "lesson")
-    private List<Deliver> delivers = new ArrayList<>();
 
     public Lesson() {
     }
@@ -41,21 +41,46 @@ public abstract class Lesson {
         this.section = section;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public Integer getPosition() {
+        return position;
+    }
+
     public void setPosition(Integer position) {
         this.position = position;
+    }
+
+    public Section getSection() {
+        return section;
     }
 
     public void setSection(Section section) {
         this.section = section;
     }
+
+    public Set<Enrollment> getEnrollmentsDone() {
+        return enrollmentsDone;
+    }
+
+    public List<Deliver> getDeliveries() {
+        return deliveries;
+    }
+
 
     @Override
     public boolean equals(Object o) {
